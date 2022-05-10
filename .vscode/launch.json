@@ -1,0 +1,28 @@
+{
+    "version": "0.2.1",
+    "configurations": [
+      {
+        "name": "TAP: Current TS Test File",
+        "type": "node",
+        "request": "launch",
+        "protocol": "inspector",
+        "env": {
+          "TS_NODE_PROJECT": "tsconfig.json"
+        },
+        "args": [
+          "${relativeFile}"
+        ],
+        "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+        ],
+        "console": "integratedTerminal",
+        "sourceMaps": true,
+        "cwd": "${workspaceRoot}",
+        "outFiles": [
+          "${workspaceFolder}/**/*.js",
+          "!**/node_modules/**"
+        ]
+      }
+    ]
+  }

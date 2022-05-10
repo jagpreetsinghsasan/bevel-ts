@@ -2,5 +2,15 @@
   "name": "@bevel-ts/shared",
   "private": true,
   "version": "0.0.0",
-  "description": "Shared library used by other libraries. Aims to hold shared functionality across various ledger deploying libraries"
+  "description": "Shared library used by other libraries. Aims to hold shared functionality across various ledger deploying libraries",
+  "main": "dist/lib/main/index.js",
+  "module": "dist/lib/main/index.js",
+  "browser": "dist/shared.web.umd.js",
+  "types": "dist/lib/main/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "dependencies": {
+    "@kubernetes/client-node": "0.16.3"
+  }
 }
