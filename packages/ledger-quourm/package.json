@@ -1,0 +1,5 @@
+{
+  "name": "ledger-quourm",
+  "version": "0.0.0",
+  "description": "Quorum library used to spin up a quorum network"
+}
