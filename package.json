@@ -1,0 +1,18 @@
+{
+  "name": "bevel-ts",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Root project for bevel-ts which contains all core components and plugins developed by the project.",
+  "workspaces": {
+    "packages": []
+  },
+  "scripts": {
+    "reset:node-modules": "del-cli '**/node_modules'",
+    "reset": "yarn run reset:node-modules",
+    "install-yarn": "npm install --global yarn@1.22.17"
+  },
+  "dependencies": {
+    "del-cli": "4.0.1",
+    "lerna": "4.0.0"
+  }
+}
