@@ -9,6 +9,8 @@ export class Kubectl{
     public static readonly CLASS_NAME = "Kubectl";
     public readonly kubeConfig: KubeConfig;
     public readonly k8sApiClient: CoreV1Api;
+    public foundNs: boolean;
+    public myInterval: any;
     public get className(): string {
         return Kubectl.CLASS_NAME;
     }
@@ -16,20 +18,33 @@ export class Kubectl{
         this.kubeConfig = new KubeConfig();
         this.kubeConfig.loadFromDefault();
         this.k8sApiClient = this.kubeConfig.makeApiClient(CoreV1Api);
+        this.foundNs = false;
+        this.myInterval = 6;
     }
 
-    public async watchNamespace(): Promise<any>{
+    alpha(){
+        console.log("In alpha method")
+    }
+
+    public watchNamespace(namespace: string){
         const watch = new Watch(this.kubeConfig);
-        const req = await watch.watch('/api/v1/namespaces',
+        watch.watch('/api/v1/namespaces',
         {},
-        (type, apiObj, watchObj) => {
-            if (type == 'ADDED') {
-                console.log('ADDED' + JSON.stringify(apiObj.metadata.name));
+        (type, apiObj) => {
+            if (type == 'ADDED' && apiObj.metadata.name === namespace) {
+                console.log('ADDED ' + JSON.stringify(apiObj));
+                this.foundNs = true;
             }
         },
         (err) => {
-            console.log(err); 
+        }).then((req)=>{
+            this.myInterval = setInterval(()=>{
+                if(this.foundNs){
+                    req.abort();
+                    clearInterval(this.myInterval)
+                }
+            }, 2*1000)
         });
-        setTimeout(() => { req.abort(); }, 100 * 1000);
+        
     }
 }
